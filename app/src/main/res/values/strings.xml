@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Companions</string>
+
+    <string name="companion">Companion</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_cancel">Cancel</string>
+
+    <string name="title_activity_setup">Setup</string>
+    <string name="title_activity_create_com">Setup</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="section_status">Status</string>
+    <string name="section_babble">Babble</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="section_welcome">Menu</string>
+    <string name="section_companion_1">1</string>
+    <string name="section_companion_2">2</string>
+    <string name="section_companion_3">3</string>
+    <string name="section_companion_4">4</string>
+    <string name="section_done">Done</string>
+
+    <string name="nav_about_companions">About Companions</string>
+    <string name="nav_accessibility">Accessibility</string>
+    <string name="nav_bug_report">Bug report</string>
+    <string name="nav_companions">Companions</string>
+    <string name="nav_guide">Guide</string>
+    <string name="nav_info">Info</string>
+    <string name="nav_legend">Legend</string>
+    <string name="nav_menu">Menu</string>
+    <string name="nav_reset">Reset</string>
+    <string name="nav_rest_period">Rest period</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_stats">Stats</string>
+    <string name="nav_sound_and_notification">Sound and notification</string>
+    <string name="nav_style">Style</string>
+    <string name="nav_tutorial">Tutorial</string>
+    <string name="nav_what_is_new">"What's new?"</string>
+
+    <string name="button_save">Save</string>
+
+    <string name="not_found_but_welcome">Welcome to Companions</string>
+    <string name="not_found">No Companions found</string>
+    <string name="not_found_add">Add some Companions by tapping here</string>
+
+
+    <string name="error_enterName">Enter a name please.</string>
+    <string name="error_enterGender">Select a gender please.</string>
+    <string name="error_enterFace">Choose a Minion please.</string>
+
+
+</resources>

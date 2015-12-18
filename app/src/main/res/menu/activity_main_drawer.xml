@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--<group>-->
+    <!--<item android:title="@string/menu_game">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_menu_game_stats"-->
+                <!--android:icon="@drawable/icon_face"-->
+                <!--android:title="@string/menu_game_stats" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_menu_game_guide"-->
+                <!--android:icon="@drawable/icon_book"-->
+                <!--android:title="@string/menu_game_guide" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_menu_game_legend"-->
+                <!--android:icon="@drawable/icon_stats"-->
+                <!--android:title="@string/menu_game_legend" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_menu_game_rest_period"-->
+                <!--android:icon="@drawable/icon_alarm"-->
+                <!--android:title="@string/menu_game_rest_period" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_menu_game_tutorial"-->
+                <!--android:icon="@drawable/icon_tutorial"-->
+                <!--android:title="@string/menu_game_tutorial" />-->
+        <!--</menu>-->
+    <!--</item>-->
+<!--</group>-->
+
+<!--<group>-->
+    <!--<item android:title="@string/menu_settings">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_menu_settings_accessibility"-->
+                <!--android:icon="@drawable/icon_accessibility"-->
+                <!--android:title="@string/menu_settings_accessibility" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_settings_game_reset"-->
+                <!--android:icon="@drawable/icon_reset"-->
+                <!--android:title="@string/menu_settings_reset" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_menu_settings_sound_and_notification"-->
+                <!--android:icon="@drawable/icon_bell"-->
+                <!--android:title="@string/menu_settings_sound_and_notification" />-->
+        <!--</menu>-->
+    <!--</item>-->
+<!--</group>-->
+
+<!--<group>-->
+    <!--<item android:title="@string/menu_info">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_menu_info_about"-->
+                <!--android:icon="@drawable/icon_about"-->
+                <!--android:title="@string/menu_info_about" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_menu_info_bug_report"-->
+                <!--android:icon="@drawable/icon_bug"-->
+                <!--android:title="@string/menu_info_bug_report" />-->
+            <!--<item-->
+                <!--android:id="@+id/nav_menu_info_whats_new"-->
+                <!--android:icon="@drawable/icon_hot"-->
+                <!--android:title="@string/menu_info_whats_new" />-->
+        <!--</menu>-->
+    <!--</item>-->
+<!--</group>-->
+
+
+</menu>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="trans">@android:color/transparent</color>
+
+    <color name="colorPrimaryDelight">#a196ba</color>
+    <color name="colorPrimaryLight">#6e6681</color>
+    <color name="colorPrimarySoft">#443b5c</color>
+    <color name="colorPrimary">#352758</color>
+    <color name="colorPrimaryMurky">#312846</color>
+    <color name="colorPrimaryDark">#251b3d</color>
+    <color name="colorAccent">#deaf08</color>
+    <color name="colorAccentHart">#646464</color>
+    <color name="colorAccentSoft">#8e8e8e</color>
+    <color name="colorSoftLight">#dfdfdf</color>
+    <color name="colorWhite">#f2f2f2</color>
+
+    <color name="statusHealth">#7cbf00</color>
+    <color name="statusEnergy">#e6cb00</color>
+    <color name="statusHunger">#FF4081</color>
+    <color name="statusThirst">#FF4081</color>
+    <color name="statusBladder">#d26600</color>
+    <color name="statusManky">#008f4a</color>
+</resources>

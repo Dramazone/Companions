@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="@string/nav_companions">
+        <menu>
+            <item
+                android:id="@+id/stats"
+                android:icon="@drawable/icon_face_2"
+                android:title="@string/nav_stats" />
+            <item
+                android:id="@+id/guide"
+                android:icon="@drawable/icon_book"
+                android:title="@string/nav_guide" />
+            <item
+                android:id="@+id/legend"
+                android:icon="@drawable/icon_stats"
+                android:title="@string/nav_legend" />
+            <item
+                android:id="@+id/rest_period"
+                android:icon="@drawable/icon_alarm"
+                android:title="@string/nav_rest_period" />
+            <item
+                android:id="@+id/tutorial"
+                android:icon="@drawable/icon_tutorial"
+                android:title="@string/nav_tutorial" />
+        </menu>
+    </item>
+
+    <item
+        android:title="@string/nav_settings">
+        <menu>
+            <item
+                android:id="@+id/reset"
+                android:icon="@drawable/icon_reset"
+                android:title="@string/nav_reset" />
+            <item
+                android:id="@+id/sound_and_notification"
+                android:icon="@drawable/icon_bell"
+                android:title="@string/nav_sound_and_notification" />
+            <item
+                android:id="@+id/style"
+                android:icon="@drawable/icon_color"
+                android:title="@string/nav_style" />
+            <item
+                android:id="@+id/accessibility"
+                android:icon="@drawable/icon_accessibility"
+                android:title="@string/nav_accessibility" />
+        </menu>
+    </item>
+
+    <item
+        android:title="@string/nav_info">
+        <menu>
+            <item
+                android:id="@+id/about_companions"
+                android:icon="@drawable/icon_about"
+                android:title="@string/nav_about_companions" />
+            <item
+                android:id="@+id/bug_report"
+                android:icon="@drawable/icon_bug"
+                android:title="@string/nav_bug_report" />
+            <item
+                android:id="@+id/what_is_new"
+                android:icon="@drawable/icon_hot"
+                android:title="@string/nav_what_is_new" />
+        </menu>
+    </item>
+
+</menu>
