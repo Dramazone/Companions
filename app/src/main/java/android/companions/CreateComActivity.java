@@ -608,6 +608,8 @@ public class CreateComActivity extends AppCompatActivity {
             case R.id.fab_add:
                 if (comSize < 4) {
                     comSize++;
+                    setup_next_fab.setImageResource(R.drawable.icon_setup_save);
+                    companion_check = false;
                 }
                 break;
             case R.id.fab_sub:
@@ -679,6 +681,7 @@ public class CreateComActivity extends AppCompatActivity {
         for (int i = 0; i < comMax; i++) {
             setup_master.removeView(setup_companion[i]);
             setup_companion[i].removeView(setup_dropDown[i]);
+            companion_editOut[i] = false;
         }
         for (int i = 0; i < comSize; i++) {
             setup_master.addView(setup_companion[i]);
