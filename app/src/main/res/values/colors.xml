@@ -8,11 +8,12 @@
     <color name="colorPrimary">#352758</color>
     <color name="colorPrimaryMurky">#312846</color>
     <color name="colorPrimaryDark">#251b3d</color>
-    <color name="colorAccent">#deaf08</color>
+    <color name="colorAccent">#ff7b00</color>
     <color name="colorAccentHart">#646464</color>
     <color name="colorAccentSoft">#8e8e8e</color>
     <color name="colorSoftLight">#dfdfdf</color>
     <color name="colorWhite">#f2f2f2</color>
+    <color name="colorPurWhite">#ffffff</color>
 
     <color name="statusHealth">#7cbf00</color>
     <color name="statusEnergy">#e6cb00</color>

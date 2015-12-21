@@ -3,7 +3,7 @@
 
 
     <gradient
-        android:angle="90.0"
+        android:angle="270.0"
         android:startColor="@color/colorAccentSoft"
         android:endColor="@color/colorSoftLight" />
 

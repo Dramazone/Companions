@@ -474,11 +474,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return comSizeSetup;
     }
 
-    static void startSetup(Context context) {
-        Intent setupActivity = new Intent(context, SetupActivity.class);
-        context.startActivity(setupActivity);
-    }
-
     static public void setNewCompanions(String[] name, int[] gender, int[] face) {
         companion_name = name;
         companion_gender = gender;

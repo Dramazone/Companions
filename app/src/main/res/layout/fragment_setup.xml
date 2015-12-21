@@ -95,11 +95,6 @@
                 android:background="@drawable/shadow_devider" />
         </LinearLayout>
 
-        <ScrollView
-            android:id="@+id/setup_head"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="30dp">
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -116,7 +111,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="50dp"
                 android:gravity="center|left">
                 <ImageView
                     android:id="@+id/setup_icon_name"
@@ -165,7 +160,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="50dp"
                 android:gravity="center|left">
                 <ImageView
                     android:id="@+id/setup_icon_gender"
@@ -224,7 +219,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="50dp"
                 android:gravity="center|left">
                 <ImageView
                     android:id="@+id/setup_icon_look"
@@ -243,12 +238,12 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:orientation="vertical"
+            <HorizontalScrollView
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
@@ -257,115 +252,95 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:padding="4dp"
+                        android:padding="2dp"
                         android:src="@drawable/image_kids_monkey"/>
                     <ImageView
                         android:id="@+id/face01"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:padding="4dp"
+                        android:padding="2dp"
                         android:src="@drawable/image_kids_bird"/>
                     <ImageView
                         android:id="@+id/face02"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="4dp"
+                        android:padding="2dp"
                         android:layout_weight="1"
                         android:src="@drawable/image_kids_pinguin"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
                     <ImageView
                         android:id="@+id/face03"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:padding="4dp"
+                        android:padding="2dp"
                         android:src="@drawable/image_kids_hippo"/>
                     <ImageView
                         android:id="@+id/face04"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:padding="4dp"
+                        android:padding="2dp"
                         android:src="@drawable/image_kids_owl"/>
                     <ImageView
                         android:id="@+id/face05"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:padding="4dp"
+                        android:padding="2dp"
                         android:src="@drawable/image_kids_lion"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
                     <ImageView
                         android:id="@+id/face06"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:padding="4dp"
+                        android:padding="2dp"
                         android:src="@drawable/image_kids_horse"/>
                     <ImageView
                         android:id="@+id/face07"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="4dp"
+                        android:padding="2dp"
                         android:layout_weight="1"
                         android:src="@drawable/image_kids_dog"/>
                     <ImageView
                         android:id="@+id/face08"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="4dp"
+                        android:padding="2dp"
                         android:layout_weight="1"
                         android:src="@drawable/image_kids_cow"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
                     <ImageView
                         android:id="@+id/face09"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="4dp"
+                        android:padding="2dp"
                         android:layout_weight="1"
                         android:src="@drawable/image_kids_elephant"/>
                     <ImageView
                         android:id="@+id/face10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="4dp"
+                        android:padding="2dp"
                         android:layout_weight="1"
                         android:src="@drawable/image_kids_bear"/>
                     <ImageView
                         android:id="@+id/face11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="4dp"
+                        android:padding="2dp"
                         android:layout_weight="1"
                         android:src="@drawable/image_kids_giraffe"/>
-                </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="7dp"
-                    android:background="@drawable/shadow_devider_up" />
-            </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="7dp"
+                android:background="@drawable/shadow_devider_up" />
         </LinearLayout>
 
             </LinearLayout>
-        </ScrollView>
 
     </LinearLayout>
 

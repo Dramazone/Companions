@@ -31,24 +31,31 @@
         android:layout_gravity="bottom|end">
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_setup_save"
+            android:layout_marginBottom="16dp"
+            android:layout_margin="8dp"
+            android:onClick="fab" />
+
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:layout_marginBottom="16dp"
             android:src="@drawable/icon_add"
-            android:onClick="fab"
-            app:fabSize="mini" />
+            android:layout_marginBottom="16dp"
+            android:layout_margin="8dp"
+            android:onClick="fab" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_sub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="6dp"
-            android:layout_marginBottom="12dp"
             android:src="@drawable/icon_sub"
-            android:onClick="fab"
-            app:fabSize="mini" />
+            android:layout_marginBottom="8dp"
+            android:layout_margin="8dp"
+            android:onClick="fab" />
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

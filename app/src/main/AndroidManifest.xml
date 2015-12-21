@@ -20,17 +20,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SetupActivity"
-            android:label="@string/title_activity_setup"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".CreateComActivity"
             android:parentActivityName=".MainActivity"
             android:label="@string/title_activity_create_com"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
