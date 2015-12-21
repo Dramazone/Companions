@@ -1,5 +1,7 @@
 package android.companions;
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -59,7 +61,8 @@ public class CreateComActivity extends AppCompatActivity {
     ImageView[] setup_face_image_11;
     ImageView[] setup_face_image_12;
 
-
+    SQLiteDatabase companionDB;
+    private static String companions = "companions";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -622,10 +625,24 @@ public class CreateComActivity extends AppCompatActivity {
                 String tmp;
 
                 if (companion_check) {
+                    SQLiteDatabase companionDB = openOrCreateDatabase("CompanionsDB", MODE_PRIVATE,null);
 
+                    companionDB.execSQL("delete from Companions");
+                    companionDB.execSQL("delete from Stats");
 
+                    for (int i = 0; i < comSize; i++) {
+                        companionDB.execSQL("INSERT INTO Companions VALUES('"+ i +"','" + companion_name[i] + "', '" + companion_gender[i] + "', '" + companion_face[i] +"', '1');");
+                        companionDB.execSQL("INSERT INTO Stats VALUES('"+ i +"','100', '100', '0', '0', '0', '0', '0');");
+                    }
+                    companionDB.close();
 
-                    Snackbar.make(view, "Du kommst hier nicht weg!", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    Intent mainActivity = new Intent(this, MainActivity.class);
+                    finish();
+                    startActivity(getIntent());
+                    mainActivity.setAction(Intent.ACTION_VIEW);
+                    mainActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mainActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(mainActivity);
                 } else {
                     for (int i = 0; i < comSize; i++) {
                         tmp = setup_name_editText[i].getText().toString();

@@ -1,9 +1,10 @@
 package android.companions;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.graphics.Typeface;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,16 +19,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,33 +35,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     static int comSizeSetup;
     static int comSize;
+    static int comMax;
     static int statSize;
-    //static String[] comName;
 
     static String[] companion_name;
     static int[] companion_gender;
     static int[] companion_face;
-    static Companion[] homies;
-    static Companion homie_1;
-    static Companion homie_2;
-    static Companion homie_3;
-    static Companion homie_4;
-    static Game party;
 
-    static LinearLayout[] layout_companion =  new LinearLayout[comSize];
-    static LinearLayout[] layout_companion_fitter =  new LinearLayout[comSize];
-    static LinearLayout[] layout_companion_stats = new LinearLayout[comSize];
-    static LinearLayout[] layout_companion_stats_row1 = new LinearLayout[comSize];
-    static LinearLayout[] layout_companion_stats_row2 = new LinearLayout[comSize];
-    static TextView[] textView_companion_stats_name = new TextView[comSize];
-    static LinearLayout[][] layout_companion_stats_stat = new LinearLayout[comSize][statSize];
-    static LinearLayout[][] layout_companion_stats_stat_bar = new LinearLayout[comSize][statSize];
-    static ImageView[][] image_companion_stats_stat_image = new ImageView[comSize][statSize];
-    static LinearLayout[] layout_companion_image_layout =  new LinearLayout[comSize];
-    static ImageView[] image_companion_image = new ImageView[comSize];
-    static LinearLayout[] layout_gap = new LinearLayout[comSize];
-    static TextView[] textView_companion_shadow = new TextView[comSize];
-    static TextView[] textView_companion_margin_1 = new TextView[comSize];
+    static LinearLayout[] layout_companion;
+    static LinearLayout[] layout_stat_holder;
+    static LinearLayout[] layout_extra;
+    static TextView[] text_name;
+    static ImageView[] image_gender;
+    static ImageView[] image_face;
+
+
+
+
+//    static Companion[] homies;
+//    static Companion homie_1;
+//    static Companion homie_2;
+//    static Companion homie_3;
+//    static Companion homie_4;
+//    static Game party;
+
+//    static LinearLayout[] layout_companion;
+//    static LinearLayout[] layout_companion_fitter;
+//    static LinearLayout[] layout_companion_stats;
+//    static LinearLayout[] layout_companion_stats_row1;
+//    static LinearLayout[] layout_companion_stats_row2;
+//    static TextView[] textView_companion_stats_name;
+//    static LinearLayout[][] layout_companion_stats_stat;
+//    static LinearLayout[][] layout_companion_stats_stat_bar;
+//    static ImageView[][] image_companion_stats_stat_image;
+//    static LinearLayout[] layout_companion_image_layout;
+//    static ImageView[] image_companion_image;
+//    static LinearLayout[] layout_gap;
+//    static TextView[] textView_companion_shadow;
+//    static TextView[][] companion_margin;
 
     static LinearLayout layout_logo;
     static TextView textView_welcome;
@@ -71,8 +80,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     static TextView textView_logo;
     static TextView textView_logo_add;
 
-    static Button popupButton;
-    static PopupMenu popupMenu;
+//    static Button popupButton;
+//    static PopupMenu popupMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,36 +110,80 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        SQLiteDatabase companionDB = openOrCreateDatabase("CompanionsDB", MODE_PRIVATE, null);
+        companionDB.execSQL("CREATE TABLE IF NOT EXISTS Companions(id INT,name TEXT, gender INT, face INT, active_status INT);");
+        companionDB.execSQL("CREATE TABLE IF NOT EXISTS Stats(id INT,health INT, joy INT, hunger INT, thirst INT, bladder INT, manky INT, full INT);");
+
+        SQLiteStatement countCompanions = companionDB.compileStatement("select count(*) from Companions");
+        comSize = (int)countCompanions.simpleQueryForLong();
+//        comSize = 1;
+        comMax = 4;
+
         //LinearLayout[] layout_companion =  new LinearLayout[comSize];
         //LinearLayout[] layout_companion_stats = new LinearLayout[comSize];
         //ImageView[] image_companion_image = new ImageView[comSize];
 
-        comSize = 0; //warning, just scale between 1-4
+//        comSize = 1; //warning, just scale between 1-4
         statSize = 6; //warning, don't scale this value please
-        //comName = new String[] { "Paula", "Michael", "Beate", "Knut"};
+
+        companion_gender = new int[comMax];
+        companion_face = new int[comMax];
+        companion_name = new String[comMax];
+
+        layout_companion =  new LinearLayout[comMax];
+        text_name =  new TextView[comMax];
+        image_gender =  new ImageView[comMax];
+        image_face =  new ImageView[comMax];
+
+//        layout_stat_holder =  new LinearLayout[comMax];
+//        layout_extra =  new LinearLayout[comMax];
+
+//        layout_companion =  new LinearLayout[comSize];
+//        layout_companion_fitter =  new LinearLayout[comSize];
+//        layout_companion_stats = new LinearLayout[comSize];
+//        layout_companion_stats_row1 = new LinearLayout[comSize];
+//        layout_companion_stats_row2 = new LinearLayout[comSize];
+//        textView_companion_stats_name = new TextView[comSize];
+//        layout_companion_stats_stat = new LinearLayout[comSize][statSize];
+//        layout_companion_stats_stat_bar = new LinearLayout[comSize][statSize];
+//        image_companion_stats_stat_image = new ImageView[comSize][statSize];
+//        layout_companion_image_layout =  new LinearLayout[comSize];
+//        image_companion_image = new ImageView[comSize];
+//        layout_gap = new LinearLayout[comSize];
+//        textView_companion_shadow = new TextView[comSize];
+//        companion_margin = new TextView[comSize][20];
+
 
 
         //initialize for the companion constructor
-        for (int i = 0; i < comSize; i++) {
+//        for (int i = 0; i < comSize; i++) {
+//
+//            companion_name[i] = "";
+//            companion_gender[i] = 99;
+//            companion_face[i] = 99;
+//
+////            layout_companion[i] =  new LinearLayout(this);
+////            layout_companion_fitter[i] =  new LinearLayout(this);
+////            layout_companion_stats[i] = new LinearLayout(this);
+////            layout_companion_stats_row1[i] = new LinearLayout(this);
+////            layout_companion_stats_row2[i] = new LinearLayout(this);
+////            layout_companion_image_layout[i] = new LinearLayout(this);
+////            image_companion_image[i] = new ImageView(this);
+////            textView_companion_stats_name[i] = new TextView(this);
+////            layout_gap[i] = new LinearLayout(this);
+////            textView_companion_shadow[i] = new TextView(this);
+////
+////            for (int j = 0; j < 20; j++) {
+////                companion_margin[i][j] = new TextView(this);
+////            }
+////
+////            for (int j = 0; j < statSize; j++) {
+////                layout_companion_stats_stat[i][j] = new LinearLayout(this);
+////                image_companion_stats_stat_image[i][j] = new ImageView(this);
+////                layout_companion_stats_stat_bar[i][j] = new LinearLayout(this);
+////            }
+//        }
 
-            layout_companion[i] =  new LinearLayout(this);
-            layout_companion_fitter[i] =  new LinearLayout(this);
-            layout_companion_stats[i] = new LinearLayout(this);
-            layout_companion_stats_row1[i] = new LinearLayout(this);
-            layout_companion_stats_row2[i] = new LinearLayout(this);
-            layout_companion_image_layout[i] = new LinearLayout(this);
-            image_companion_image[i] = new ImageView(this);
-            textView_companion_stats_name[i] = new TextView(this);
-            layout_gap[i] = new LinearLayout(this);
-            textView_companion_shadow[i] = new TextView(this);
-            textView_companion_margin_1[i] = new TextView(this);
-
-            for (int j = 0; j < statSize; j++) {
-                layout_companion_stats_stat[i][j] = new LinearLayout(this);
-                image_companion_stats_stat_image[i][j] = new ImageView(this);
-                layout_companion_stats_stat_bar[i][j] = new LinearLayout(this);
-            }
-        }
         //initialize for a empty companion site
         layout_logo = new LinearLayout(this);
         textView_welcome = new TextView(this);
@@ -138,8 +191,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         textView_logo = new TextView(this);
         textView_logo_add = new TextView(this);
 
-        popupMenu = new PopupMenu(MainActivity.this, layout_logo);
+//        popupMenu = new PopupMenu(MainActivity.this, layout_logo);
 
+
+
+        for (int i = 0; i < comSize; i++) {
+            SQLiteStatement fillNameArrays = companionDB.compileStatement("select name from Companions where id="+i+"");
+            companion_name[i] = fillNameArrays.simpleQueryForString();
+
+            SQLiteStatement fillGenderArrays = companionDB.compileStatement("select gender from Companions where id="+i+"");
+            companion_gender[i] = (int)fillGenderArrays.simpleQueryForLong();
+
+            SQLiteStatement fillFaceArrays = companionDB.compileStatement("select face from Companions where id="+i+"");
+            companion_face[i] = (int)fillFaceArrays.simpleQueryForLong();
+        }
+        companionDB.close();
     }
 
     @Override
@@ -217,134 +283,106 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             LinearLayout layout_main = (LinearLayout) rootView.findViewById(R.id.layout_main);
             layout_main.setGravity(Gravity.CENTER);
 
+            layout_companion[0] = (LinearLayout) rootView.findViewById(R.id.layout_companion_1);
+            layout_companion[1] = (LinearLayout) rootView.findViewById(R.id.layout_companion_2);
+            layout_companion[2] = (LinearLayout) rootView.findViewById(R.id.layout_companion_3);
+            layout_companion[3] = (LinearLayout) rootView.findViewById(R.id.layout_companion_4);
+
+            text_name[0] = (TextView) rootView.findViewById(R.id.text_name_companion_1);
+            text_name[1] = (TextView) rootView.findViewById(R.id.text_name_companion_2);
+            text_name[2] = (TextView) rootView.findViewById(R.id.text_name_companion_3);
+            text_name[3] = (TextView) rootView.findViewById(R.id.text_name_companion_4);
+
+            image_gender[0] = (ImageView) rootView.findViewById(R.id.image_gender_companion_1);
+            image_gender[1] = (ImageView) rootView.findViewById(R.id.image_gender_companion_2);
+            image_gender[2] = (ImageView) rootView.findViewById(R.id.image_gender_companion_3);
+            image_gender[3] = (ImageView) rootView.findViewById(R.id.image_gender_companion_4);
+
+            image_face[0] = (ImageView) rootView.findViewById(R.id.image_face_companion_1);
+            image_face[1] = (ImageView) rootView.findViewById(R.id.image_face_companion_2);
+            image_face[2] = (ImageView) rootView.findViewById(R.id.image_face_companion_3);
+            image_face[3] = (ImageView) rootView.findViewById(R.id.image_face_companion_4);
+
+//            layout_stat_holder[0] = (LinearLayout) rootView.findViewById(R.id.layout_stat_holder_companion_1);
+//            layout_extra[0] = (LinearLayout) rootView.findViewById(R.id.layout_extra_companion_1);
+
+
+
             // site constructor V1.1 " like an array ;) , hot! "
             if (getArguments().getInt(ARG_SECTION_NUMBER) == status) { //status site
+
                 if (comSize >= 1) {
+
                     for (int i = 0; i < comSize; i++) {
-                        layout_companion[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1)); //width, height, weight
-                        //layout_companion[i].setBackgroundColor(getResources().getColor(R.color.colorPrimarySoft));
-                        //layout_companion[i].setBackgroundResource(R.drawable.rounded_full_stats_buttons_main);
-                        layout_companion[i].setGravity(Gravity.CENTER);
 
-                        layout_companion_fitter[i].setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)); //width, height
-                        layout_companion_fitter[i].setGravity(Gravity.CENTER);
-                        layout_companion_fitter[i].setBackgroundResource(R.drawable.rounded_full_stats_buttons_main);
-                        //layout_companion_fitter[i].setBackgroundColor(getResources().getColor(R.color.colorPrimarySoft));
-
-                        layout_companion_stats[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1)); //width, height
-                        layout_companion_stats[i].setOrientation(LinearLayout.VERTICAL);
-                        layout_companion_stats[i].setPadding((4 * dpConv), (4 * dpConv), (4 * dpConv), (4 * dpConv)); //left, top, right, bottom
-                        layout_companion_stats[i].setGravity(Gravity.CENTER);
-                        layout_companion_stats[i].setWeightSum(2);
-                        //layout_companion_stats[i].setBackgroundColor(getResources().getColor(R.color.colorPrimarySoft));
-
-                        layout_companion_stats_row1[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1)); //width, height, weight
-                        layout_companion_stats_row1[i].setGravity(Gravity.CENTER | Gravity.BOTTOM);
-                        //layout_companion_stats_row1[i].setPadding(0, 0, 0, (4 * dpConv)); //left, top, right, bottom
-                        layout_companion_stats_row2[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1)); //width, height, weight
-                        layout_companion_stats_row2[i].setGravity(Gravity.CENTER | Gravity.TOP);
-
-                        for (int j = 0; j < statSize; j++) {
-                            layout_companion_stats_stat[i][j].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1)); //width, height, weight
-                            layout_companion_stats_stat[i][j].setOrientation(LinearLayout.VERTICAL);
-                            layout_companion_stats_stat[i][j].setBackgroundResource(R.drawable.rounded_full_stats_buttons_main);
-                            layout_companion_stats_stat[i][j].setPadding((4 * dpConv), (4 * dpConv), (4 * dpConv), (4 * dpConv)); //left, top, right, bottom
-
-                            image_companion_stats_stat_image[i][j].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1)); //width, height
-                            switch (j) {
-                                case 0:
-                                    image_companion_stats_stat_image[i][j].setImageResource(R.drawable.icon_heart);
-                                    break;
-                                case 1:
-                                    image_companion_stats_stat_image[i][j].setImageResource(R.drawable.icon_drink);
-                                    break;
-                                case 2:
-                                    image_companion_stats_stat_image[i][j].setImageResource(R.drawable.icon_drop);
-                                    break;
-                                case 3:
-                                    image_companion_stats_stat_image[i][j].setImageResource(R.drawable.icon_star);
-                                    break;
-                                case 4:
-                                    image_companion_stats_stat_image[i][j].setImageResource(R.drawable.icon_food);
-                                    break;
-                                case 5:
-                                    image_companion_stats_stat_image[i][j].setImageResource(R.drawable.icon_leaf);
-                                    break;
-                                default:
-                                    break;
+                        if (comSize <= 3) {
+                            layout_main.removeView(layout_companion[3]);
+                            if (comSize <= 2) {
+                                layout_main.removeView(layout_companion[2]);
+                                if (comSize == 1) {
+                                    layout_companion[1].removeAllViews();
+                                    layout_companion[1].setBackgroundResource(0);
+                                }
                             }
-
-                            layout_companion_stats_stat_bar[i][j].setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)); //width, height
                         }
 
 
-                        layout_companion_image_layout[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1)); //width, height, weight
-                        layout_companion_image_layout[i].setOrientation(LinearLayout.VERTICAL);
-                        layout_companion_image_layout[i].setGravity(Gravity.CENTER);
-                        layout_companion_image_layout[i].setPadding((8 * dpConv), (4 * dpConv), (8 * dpConv), (4 * dpConv)); //left, top, right, bottom
-                        //layout_companion_image_layout[i].setBackgroundColor(getResources().getColor(R.color.colorPrimarySoft));
+                        text_name[i].setText(companion_name[i]);
 
-                        //image_companion_image[i].setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)); //width, height
-                        image_companion_image[i].setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)); //width, height
-                        image_companion_image[i].setImageResource(R.drawable.image_kids_owl);
-                        image_companion_image[i].setPadding(0, (4 * dpConv), 0, (4 * dpConv)); //left, top, right, bottom
-
-                        textView_companion_stats_name[i].setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1)); //width, height, weight
-                        textView_companion_stats_name[i].setText(companion_name[i]);
-                        textView_companion_stats_name[i].setTextColor(getResources().getColor(R.color.colorSoftLight));
-
-                        layout_gap[i].setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)); //width, height
-                        layout_gap[i].setOrientation(LinearLayout.VERTICAL);
-
-                        textView_companion_shadow[i].setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (7 * dpConv))); //width, height
-                        textView_companion_shadow[i].setBackgroundResource(R.drawable.shadow_devider);
-
-                        textView_companion_margin_1[i].setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, (9 * dpConv))); //width, height
-
-
-
-                        //print view to the main layout
-                        (layout_main).addView(layout_companion[i]);
-
-                        if ((i + 1) % 2 != 0) {
-                            layout_companion_fitter[i].setGravity(Gravity.CENTER | Gravity.RIGHT);
+                        if (companion_gender[i] == 0) {
+                            image_gender[i].setImageResource(R.drawable.icon_female);
                         } else {
-                            layout_companion_fitter[i].setGravity(Gravity.CENTER | Gravity.LEFT);
+                            image_gender[i].setImageResource(R.drawable.icon_male);
                         }
 
-                        (layout_companion[i]).addView(layout_companion_fitter[i]);
-
-                        if ((i + 1) % 2 != 0) {
-                            layout_companion_image_layout[i].setGravity(Gravity.CENTER | Gravity.LEFT);
-                            (layout_companion_fitter[i]).addView(layout_companion_image_layout[i]);
-                            (layout_companion_fitter[i]).addView(layout_companion_stats[i]);
-                        } else {
-                            layout_companion_image_layout[i].setGravity(Gravity.CENTER | Gravity.RIGHT);
-                            (layout_companion_fitter[i]).addView(layout_companion_stats[i]);
-                            (layout_companion_fitter[i]).addView(layout_companion_image_layout[i]);
+                        switch (companion_face[i]) {
+                            case 0:
+                                image_face[i].setImageResource(R.drawable.image_kids_monkey);
+                                break;
+                            case 1:
+                                image_face[i].setImageResource(R.drawable.image_kids_bird);
+                                break;
+                            case 2:
+                                image_face[i].setImageResource(R.drawable.image_kids_pinguin);
+                                break;
+                            case 3:
+                                image_face[i].setImageResource(R.drawable.image_kids_hippo);
+                                break;
+                            case 4:
+                                image_face[i].setImageResource(R.drawable.image_kids_owl);
+                                break;
+                            case 5:
+                                image_face[i].setImageResource(R.drawable.image_kids_lion);
+                                break;
+                            case 6:
+                                image_face[i].setImageResource(R.drawable.image_kids_horse);
+                                break;
+                            case 7:
+                                image_face[i].setImageResource(R.drawable.image_kids_dog);
+                                break;
+                            case 8:
+                                image_face[i].setImageResource(R.drawable.image_kids_cow);
+                                break;
+                            case 9:
+                                image_face[i].setImageResource(R.drawable.image_kids_elephant);
+                                break;
+                            case 10:
+                                image_face[i].setImageResource(R.drawable.image_kids_bear);
+                                break;
+                            case 11:
+                                image_face[i].setImageResource(R.drawable.image_kids_giraffe);
+                                break;
+                            default:
+                                break;
                         }
-                        (layout_companion_image_layout[i]).addView(image_companion_image[i]);
-                        (layout_companion_image_layout[i]).addView(textView_companion_stats_name[i]);
-                        (layout_companion_stats[i]).addView(layout_companion_stats_row1[i]);
-                        (layout_companion_stats[i]).addView(layout_companion_stats_row2[i]);
 
-                        for (int j = 0; j < statSize; j++) {
-                            if (j < (statSize / 2) ) {
-                                (layout_companion_stats_row1[i]).addView(layout_companion_stats_stat[i][j]);
-                            } else {
-                                (layout_companion_stats_row2[i]).addView(layout_companion_stats_stat[i][j]);
-                            }
-                            (layout_companion_stats_stat[i][j]).addView(image_companion_stats_stat_image[i][j]);
-                            (layout_companion_stats_stat[i][j]).addView(layout_companion_stats_stat_bar[i][j]);
-                        }
-                        (layout_main).addView(layout_gap[i]);
-                        (layout_gap[i]).addView(textView_companion_shadow[i]);
-                        (layout_gap[i]).addView(textView_companion_margin_1[i]);
+
+
                     }
 
 
-
                 } else {
+                    layout_main.removeAllViews();
 
                     layout_logo.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)); //width, height
                     //layout_logo.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDelight));
@@ -354,9 +392,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     layout_logo.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent setupActivity = new Intent(getContext(),CreateComActivity.class);
-                            startActivity(setupActivity);
                             comSizeSetup = 1;
+                            Intent setupActivity = new Intent(getContext(),CreateComActivity.class);
+                            setupActivity.setAction(Intent.ACTION_VIEW);
+                            setupActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            setupActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                            startActivity(setupActivity);
                         }
                     });
 
@@ -385,6 +426,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             if (getArguments().getInt(ARG_SECTION_NUMBER) == babble) { //babble site
+                layout_main.removeAllViews();
+
                 if (comSize >= 1) {
 
                 } else {
@@ -452,6 +495,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.tutorial) {
 
         } else if (id == R.id.reset) {
+            comSizeSetup = 1;
+            Intent setupActivity = new Intent(this, CreateComActivity.class);
+            setupActivity.setAction(Intent.ACTION_VIEW);
+            setupActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            setupActivity.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(setupActivity);
 
         } else if (id == R.id.sound_and_notification) {
 
@@ -474,39 +523,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return comSizeSetup;
     }
 
-    static public void setNewCompanions(String[] name, int[] gender, int[] face) {
-        companion_name = name;
-        companion_gender = gender;
-        companion_face = face;
-        comSize = companion_name.length;
 
-        homie_1 = new Companion(companion_name[0], companion_gender[0], companion_face[0]);
-
-        if (comSize > 1) {
-            homie_2 = new Companion(companion_name[1], companion_gender[1], companion_face[1]);
-        }
-        if (comSize > 2) {
-            homie_3 = new Companion(companion_name[2], companion_gender[2], companion_face[2]);
-        }
-        if (comSize > 3) {
-            homie_4 = new Companion(companion_name[3], companion_gender[3], companion_face[3]);
-        }
-
-        for (int i = 0; i < comSize; i++) {
-            //homies[i] = new Companion(companion_name[i], companion_gender[i], companion_face[i]);
-        }
-
-        party = new Game(companion_name.length);
-
-        //getNames();
-    }
-
-    static void getNames() {
-        if (homies != null && party != null) {
-            for (int i = 0; i < party.getComSize(); i++) {
-                // need?
-            }
-        }
-    }
 
 }
